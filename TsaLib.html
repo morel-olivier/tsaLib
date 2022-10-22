@@ -136,11 +136,11 @@ kMax (_type_): _description_</p>
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">findFirstPeak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.findFirstPeak" title="Permalink to this definition"></a></dt>
 <dd><p>Find first peak in signal</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>x (array_like): Signal
-w (int, optional): Size of the window. Th maximum MUST be the absolute maximum in a window of size w around it. Defaults to 1.</p>
+<dt>Args:</dt><dd><p>x (array_like): Signal.
+w (int, optional): Size of the window. The maximum MUST be the absolute maximum in a window of size w around it. Defaults to 1.</p>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt>lagMax: integer</dt><dd><p>Indice of the first peak</p>
+<dt>lagMax: integer</dt><dd><p>Index of the first peak.py</p>
 </dd>
 </dl>
 </dd>
@@ -166,9 +166,9 @@ w (int, optional): Size of the window. Th maximum MUST be the absolute maximum i
 <dt class="sig sig-object py" id="TsaLib.TsaLib.signal2Tone">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">signal2Tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Fs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.signal2Tone" title="Permalink to this definition"></a></dt>
 <dd><p>Signal to tone</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>signal (array_like): Signal used to find the tone
-Fs (real): Sampling Frequency in [Hz]</p>
+<dl>
+<dt>Args:</dt><dd><p>signal (array_like): Signal used to find the tone.</p>
+<p>Fs (real): Sampling Frequency in [Hz].</p>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
 <dt>Fy<span class="classifier">real</span></dt><dd><p>Frequency of th signal.</p>
@@ -193,12 +193,17 @@ Fs (real): Sampling Frequency in [Hz]</p>
 <dt class="sig sig-object py" id="TsaLib.TsaLib.unbiasedAutoCorrelation">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">unbiasedAutoCorrelation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.unbiasedAutoCorrelation" title="Permalink to this definition"></a></dt>
 <dd><p>Compute unbiased auto correlation</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>x (_type_): _description_
-kMin (_type_): _description_
-kMax (_type_): _description_</p>
+<dl>
+<dt>Args:</dt><dd><p>x (array_like): Signal to be autocorrelated.</p>
+<p>kMin (integer): Start index of correlation.</p>
+<p>kMax (integer): End index of correlation.</p>
 </dd>
-<dt>Returns:</dt><dd><p>_type_: _description_</p>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>ndarray:        lags</dt><dd><p>Index of the correlation (from kMin to Kmax with a step of 1).</p>
+</dd>
+<dt>ndarray:        rxx</dt><dd><p>Auto correlation of x.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>

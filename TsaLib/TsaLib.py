@@ -6,6 +6,16 @@ import numpy as np
 # Do not care about maxima on the first w and last w values
 #safe in theory
 def findFirstPeak(x,w=1):
+	"""Find first peak in signal
+
+	Args:
+		x (array_like): Signal
+		w (int, optional): Size of the window. Th maximum MUST be the absolute maximum in a window of size w around it. Defaults to 1.
+
+	Returns:
+		lagMax:	integer
+				Indice of the first peak
+	"""
 	lagMax = -1
 	i = w
 	while lagMax == -1 and i < len(x) -w:
@@ -18,6 +28,16 @@ def findFirstPeak(x,w=1):
 
 # not safe
 def unbiasedAutoCorrelation(x, kMin, kMax):
+	"""Compute unbiased auto correlation
+
+	Args:
+		x (_type_): _description_
+		kMin (_type_): _description_
+		kMax (_type_): _description_
+
+	Returns:
+		_type_: _description_
+	"""
 	lags = np.arange(kMin,kMax +1)	# WARNING: add 1 to kMax besause np.arange stop 1 before the value it was given
 	rxx = np.zeros(kMax - kMin + 1)
 	for i in lags:
@@ -28,6 +48,16 @@ def unbiasedAutoCorrelation(x, kMin, kMax):
 
 # not safe and not optimized
 def biasedAutoCorrelation(x, kMin, kMax):	# TODO: improve security
+	"""Compute biased auto correlation
+
+	Args:
+		x (_type_): _description_
+		kMin (_type_): _description_
+		kMax (_type_): _description_
+
+	Returns:
+		_type_: _description_
+	"""
 	lags = np.arange(kMin,kMax +1)
 	rxx = np.zeros(kMax - kMin + 1)
 	for k in range(kMin, kMax+1):

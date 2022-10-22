@@ -24,6 +24,7 @@ jobs:
     - name: Build docs
       run: |
         cd docs
+        make clean
         make html
     # https://github.com/peaceiris/actions-gh-pages
     - name: Deploy

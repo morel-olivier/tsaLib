@@ -9,12 +9,12 @@ def findFirstPeak(x,w=1):
 	"""Find first peak in signal
 
 	Args:
-		x (array_like): Signal
-		w (int, optional): Size of the window. Th maximum MUST be the absolute maximum in a window of size w around it. Defaults to 1.
+		x (array_like): Signal.
+		w (int, optional): Size of the window. The maximum MUST be the absolute maximum in a window of size w around it. Defaults to 1.
 
 	Returns:
 		lagMax:	integer
-				Indice of the first peak
+				Index of the first peak.py
 	"""
 	lagMax = -1
 	i = w
@@ -31,12 +31,18 @@ def unbiasedAutoCorrelation(x, kMin, kMax):
 	"""Compute unbiased auto correlation
 
 	Args:
-		x (_type_): _description_
-		kMin (_type_): _description_
-		kMax (_type_): _description_
+		x (array_like): Signal to be autocorrelated.
+
+		kMin (integer): Start index of correlation.
+
+		kMax (integer): End index of correlation.
 
 	Returns:
-		_type_: _description_
+		ndarray:	lags
+					Index of the correlation (from kMin to Kmax with a step of 1).
+		ndarray:	rxx
+					Auto correlation of x.
+		
 	"""
 	lags = np.arange(kMin,kMax +1)	# WARNING: add 1 to kMax besause np.arange stop 1 before the value it was given
 	rxx = np.zeros(kMax - kMin + 1)
@@ -134,8 +140,9 @@ def signal2Tone(signal, Fs):
 	"""Signal to tone
 
 	Args:
-		signal (array_like): Signal used to find the tone
-		Fs (real): Sampling Frequency in [Hz]
+		signal (array_like): Signal used to find the tone.
+		
+		Fs (real): Sampling Frequency in [Hz].
 
 	Returns:
 		Fy 		:	real

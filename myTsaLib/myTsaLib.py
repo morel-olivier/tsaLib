@@ -57,6 +57,7 @@ def findPeak(x, kMin, kMax):
 def dummPython(x):
 	return x
 
+
 def correlationCoefficient(x,y):
 	x = x - np.mean(x)
 	y = y - np.mean(y)	# centralization
@@ -99,7 +100,23 @@ def pitch2Tone(freq):
 
 	return tone[t],o,t
 
-def signal2Tone
+def signal2Tone(signal, Fs):
+	"""Signal to tone
+
+	Args:
+		signal (array_like): Signal used to find the tone
+		Fs (real): Sampling Frequency in [Hz]
+
+	Returns:
+		Fy 		:	real
+					Frequency of th signal.
+		tone	:	string
+					Tone of the signal in letter.
+		octave 	:	integer
+					Octave of the signal (I don't rememeber the norm used to calculate, it may on lower or higher).
+		t 		:	integer
+					Tone of the signal but in integer form.
+	"""
 	rxx = np.correlate(signal, signal, 'same')
 	firstPeak = findFirstPeak(rxx)
 	secondPeak = findFirstPeak(rxx, w=firstPeak+1)

@@ -1,13 +1,13 @@
-myTsaLib package
-================
+TsaLib package
+==============
 
 Submodules
 ----------
 
-myTsaLib.myTsaLib module
-------------------------
+TsaLib.TsaLib module
+--------------------
 
-.. automodule:: myTsaLib.myTsaLib
+.. automodule:: TsaLib.TsaLib
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ myTsaLib.myTsaLib module
 Module contents
 ---------------
 
-.. automodule:: myTsaLib
+.. automodule:: TsaLib
    :members:
    :undoc-members:
    :show-inheritance:

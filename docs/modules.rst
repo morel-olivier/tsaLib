@@ -1,7 +1,7 @@
-myTsaLib
-========
+TsaLib
+======
 
 .. toctree::
    :maxdepth: 4
 
-   myTsaLib
+   TsaLib

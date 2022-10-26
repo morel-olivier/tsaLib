@@ -134,16 +134,21 @@ def correlationCoefficient(x,y):
 
 # TODO: add normalized cross correlation
 
-# TODO: use standard function
 def computeDFT(x, ndft, hamming=False):
 	"""Compute Discrete Fourrier Transform.
 
 	Args:
-		x (array-like): Signal on wich the DFT will be perform.
+		x: array-like
+			Signal on wich the DFT will be perform.
 
-		ndft (integer): Number of samples in the dft.
+		ndft: integer
+			Number of samples in the dft.
+			If ndft is greater than the length of x then zeros are appended to the end of x (zero padding).
+			If ndft is smaller than the length of x then x is truncated to have a length o ndft.
+			This is
 
-		hamming (bool, optional): hamming. Defaults to False.
+		hamming: bool, optional
+			hamming. Defaults to False.
 
 	Returns:
 		dft: ndarray
@@ -158,6 +163,7 @@ def computeDFT(x, ndft, hamming=False):
 
 	## à améliorer
 	permetre de renvoyer un tableau de fréquence bipolair (-Fs/2 à Fs/2) au lieu de 0 à Fs
+	add normalization parameter
 	"""
 	N = len(x)
 	w = np.arange(0,1, 1/ndft)
@@ -165,12 +171,44 @@ def computeDFT(x, ndft, hamming=False):
 	return dft, w
 
 def computePSD(x, ndft, hamming=False):
+	"""Compute Power Spectral Density
+
+	Args:
+		x (array-like): signal on wich the DFT and the PSD.
+		ndft (integer): Number of samples in the dft.
+		hamming (bool, optional): hamming. Defaults to False.
+
+	Returns:
+		psd: ndarray
+			Power Spectral Density of x.
+		dft: ndarray
+			Complex values of the dft.
+		w: ndarray
+			Normalized frequencies.
+
+	"""
 	dft, w = computeDFT(x,ndft, hamming=hamming)
 	psd = (np.abs(dft)**2)
 	psd /= ndft
 	return psd, dft, w
 
 def pitch2Tone(freq):
+	"""pitch to tone
+
+	Parameters
+	----------
+	freq : float
+		frequecy used to determine the tone.
+
+	Returns
+	-------
+	tone: string
+		Letter of the tone.
+	o: integer
+		octave of the tone.
+	t: integer
+		index of the tone
+	"""
 	tone=["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "Bb", "B"]
 
 	fRef = 440

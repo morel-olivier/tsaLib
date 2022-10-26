@@ -118,10 +118,18 @@
 <dt class="sig sig-object py" id="TsaLib.TsaLib.computeDFT">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">computeDFT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hamming</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.computeDFT" title="Permalink to this definition"></a></dt>
 <dd><p>Compute Discrete Fourrier Transform.</p>
-<dl>
-<dt>Args:</dt><dd><p>x (array-like): Signal on wich the DFT will be perform.</p>
-<p>ndft (integer): Number of samples in the dft.</p>
-<p>hamming (bool, optional): hamming. Defaults to False.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>x: array-like</dt><dd><p>Signal on wich the DFT will be perform.</p>
+</dd>
+<dt>ndft: integer</dt><dd><p>Number of samples in the dft.
+If ndft is greater than the length of x then zeros are appended to the end of x (zero padding).
+If ndft is smaller than the length of x then x is truncated to have a length o ndft.
+This is</p>
+</dd>
+<dt>hamming: bool, optional</dt><dd><p>hamming. Defaults to False.</p>
+</dd>
+</dl>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
 <dt>dft: ndarray</dt><dd><p>Complex values of the dft.</p>
@@ -135,13 +143,30 @@
 <p>## à tester:
 ndft plus grand, plus petit est = à len(x)</p>
 <p>## à améliorer
-permetre de renvoyer un tableau de fréquence bipolair (-Fs/2 à Fs/2) au lieu de 0 à Fs</p>
+permetre de renvoyer un tableau de fréquence bipolair (-Fs/2 à Fs/2) au lieu de 0 à Fs
+add normalization parameter</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.computePSD">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">computePSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hamming</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.computePSD" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Compute Power Spectral Density</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>x (array-like): signal on wich the DFT and the PSD.
+ndft (integer): Number of samples in the dft.
+hamming (bool, optional): hamming. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>psd: ndarray</dt><dd><p>Power Spectral Density of x.</p>
+</dd>
+<dt>dft: ndarray</dt><dd><p>Complex values of the dft.</p>
+</dd>
+<dt>w: ndarray</dt><dd><p>Normalized frequencies.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.correlationCoefficient">
@@ -199,7 +224,26 @@ Default to 0.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.pitch2Tone">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">pitch2Tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.pitch2Tone" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>pitch to tone</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>freq<span class="classifier">float</span></dt><dd><p>frequecy used to determine the tone.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>tone: string</dt><dd><p>Letter of the tone.</p>
+</dd>
+<dt>o: integer</dt><dd><p>octave of the tone.</p>
+</dd>
+<dt>t: integer</dt><dd><p>index of the tone</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.signal2Tone">

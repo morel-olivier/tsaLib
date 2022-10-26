@@ -6,7 +6,7 @@ with open("readme.md", "r") as fh:
 
 setuptools.setup(
     name="TsaLib",
-    version="0.0.1",
+    version="0.0.2",
     author="Olivier Morel",
     author_email="molivier933@gmail.com",
     description="Personal package for the TSA course in HEIG-VD",

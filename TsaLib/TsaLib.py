@@ -6,10 +6,11 @@ import numpy as np
 # Do not care about maxima on the first w and last w values
 #safe in theory
 def findFirstPeak(x,w=1):
-	"""Find first peak in signal
+	"""Find first peak in signal.
 
 	Args:
 		x (array_like): Signal.
+
 		w (int, optional): Size of the window. The maximum MUST be the absolute maximum in a window of size w around it. Defaults to 1.
 
 	Returns:
@@ -28,7 +29,7 @@ def findFirstPeak(x,w=1):
 
 # not safe
 def unbiasedAutoCorrelation(x, kMin, kMax):
-	"""Compute unbiased auto correlation
+	"""Compute unbiased auto correlation.
 
 	Args:
 		x (array_like): Signal to be autocorrelated.
@@ -38,10 +39,10 @@ def unbiasedAutoCorrelation(x, kMin, kMax):
 		kMax (integer): End index of correlation.
 
 	Returns:
-		ndarray:	lags
-					Index of the correlation (from kMin to Kmax with a step of 1).
-		ndarray:	rxx
-					Auto correlation of x.
+		lags:	ndarray
+				Index of the correlation (from kMin to Kmax with a step of 1).
+		rxx:	ndarray
+				Unbiased auto correlation of x.
 		
 	"""
 	lags = np.arange(kMin,kMax +1)	# WARNING: add 1 to kMax besause np.arange stop 1 before the value it was given
@@ -54,15 +55,21 @@ def unbiasedAutoCorrelation(x, kMin, kMax):
 
 # not safe and not optimized
 def biasedAutoCorrelation(x, kMin, kMax):	# TODO: improve security
-	"""Compute biased auto correlation
+	"""Compute biased auto correlation.
 
 	Args:
-		x (_type_): _description_
-		kMin (_type_): _description_
-		kMax (_type_): _description_
+		x (ndarray): Signal to be correlated
+
+		kMin (integer): Start index of correlation.
+
+		kMax (integer): End index of correlation.
 
 	Returns:
-		_type_: _description_
+		lags:	ndarray
+				Index of the correlation (from kMin to Kmax with a step of 1).
+		
+		rxx:	ndarray
+				Biased auto correlation of x.
 	"""
 	lags = np.arange(kMin,kMax +1)
 	rxx = np.zeros(kMax - kMin + 1)
@@ -78,6 +85,24 @@ def biasedAutoCorrelation(x, kMin, kMax):	# TODO: improve security
 # default of lagMax = kMin
 # default of xMax = 0
 def findMax(x, kMin, kMax):
+	"""Find the maximum of a signal.
+
+	Args:
+		x (array-like): Signal.
+
+		kMin (integer): Start index of search.
+
+		kMax (integer): End index of search.
+
+	Returns:
+		lagMax: integer
+				Index of the greatest value in x.
+				Default to kMin.
+
+		xMax:	integer
+				Maximum value found in x.
+				Default to 0.
+	"""
 	lagMax = kMin
 	xMax = 0
 	if kMin >= kMax or kMin < 0 or kMax > len(x)-1:	# error cases
@@ -87,16 +112,22 @@ def findMax(x, kMin, kMax):
 	xMax = x[lagMax]
 	return lagMax, xMax
 
-def findPeak(x, kMin, kMax):
-	return findMax(x, kMin, kMax)
-
-def dummPython(x):
-	return x
-
-
 def correlationCoefficient(x,y):
+	"""Compute the correlation coefficient between two signals.
+
+	Args:
+		x (array-like): Signal to correlate.
+
+		y (array-like): Signal to correlate.
+
+	Returns:
+		r: integer
+			Correlation coefficient between x and y.
+	"""
+	# centralization
 	x = x - np.mean(x)
-	y = y - np.mean(y)	# centralization
+	y = y - np.mean(y)
+
 	r = np.correlate(x,y, mode='valid')
 	r /= np.sqrt(np.correlate(x,x, mode='valid')*np.correlate(y,y, mode='valid'))
 	return r
@@ -105,15 +136,32 @@ def correlationCoefficient(x,y):
 
 # TODO: use standard function
 def computeDFT(x, ndft, hamming=False):
-	N = len(x)
-	if N < ndft:
-		x = np.append(x, np.zeros(ndft-N))
-	w = np.arange(0,1, 1/ndft)
-	k = np.arange(0, ndft)
-	dft = np.zeros(ndft, dtype = 'complex_')
+	"""Compute Discrete Fourrier Transform.
+
+	Args:
+		x (array-like): Signal on wich the DFT will be perform.
+
+		ndft (integer): Number of samples in the dft.
+
+		hamming (bool, optional): hamming. Defaults to False.
+
+	Returns:
+		dft: ndarray
+			Complex values of the dft.
+		w: ndarray
+			Normalized frequencies.
 	
-	#for n in range(ndft):
-	#	dft[n] = np.sum(np.dot(x, np.exp((-1j*2*np.pi*n*k)/ndft)))
+	y[1:3:2] sort les valeurs de 1 à 3 par pas de 1
+
+	## à tester:
+	ndft plus grand, plus petit est = à len(x)
+
+	## à améliorer
+	permetre de renvoyer un tableau de fréquence bipolair (-Fs/2 à Fs/2) au lieu de 0 à Fs
+	"""
+	N = len(x)
+	w = np.arange(0,1, 1/ndft)
+	dft = np.fft.fft(x, ndft)
 	return dft, w
 
 def computePSD(x, ndft, hamming=False):

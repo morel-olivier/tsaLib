@@ -48,10 +48,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.computeDFT"><code class="docutils literal notranslate"><span class="pre">computeDFT()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.computePSD"><code class="docutils literal notranslate"><span class="pre">computePSD()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.correlationCoefficient"><code class="docutils literal notranslate"><span class="pre">correlationCoefficient()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.dummPython"><code class="docutils literal notranslate"><span class="pre">dummPython()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.findFirstPeak"><code class="docutils literal notranslate"><span class="pre">findFirstPeak()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.findMax"><code class="docutils literal notranslate"><span class="pre">findMax()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.findPeak"><code class="docutils literal notranslate"><span class="pre">findPeak()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.pitch2Tone"><code class="docutils literal notranslate"><span class="pre">pitch2Tone()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.signal2Tone"><code class="docutils literal notranslate"><span class="pre">signal2Tone()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#TsaLib.TsaLib.spectogramme"><code class="docutils literal notranslate"><span class="pre">spectogramme()</span></code></a></li>
@@ -100,13 +98,18 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.biasedAutoCorrelation">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">biasedAutoCorrelation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.biasedAutoCorrelation" title="Permalink to this definition"></a></dt>
-<dd><p>Compute biased auto correlation</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>x (_type_): _description_
-kMin (_type_): _description_
-kMax (_type_): _description_</p>
+<dd><p>Compute biased auto correlation.</p>
+<dl>
+<dt>Args:</dt><dd><p>x (ndarray): Signal to be correlated</p>
+<p>kMin (integer): Start index of correlation.</p>
+<p>kMax (integer): End index of correlation.</p>
 </dd>
-<dt>Returns:</dt><dd><p>_type_: _description_</p>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>lags:   ndarray</dt><dd><p>Index of the correlation (from kMin to Kmax with a step of 1).</p>
+</dd>
+<dt>rxx:    ndarray</dt><dd><p>Biased auto correlation of x.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -114,7 +117,26 @@ kMax (_type_): _description_</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.computeDFT">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">computeDFT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hamming</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.computeDFT" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Compute Discrete Fourrier Transform.</p>
+<dl>
+<dt>Args:</dt><dd><p>x (array-like): Signal on wich the DFT will be perform.</p>
+<p>ndft (integer): Number of samples in the dft.</p>
+<p>hamming (bool, optional): hamming. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dft: ndarray</dt><dd><p>Complex values of the dft.</p>
+</dd>
+<dt>w: ndarray</dt><dd><p>Normalized frequencies.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>y[1:3:2] sort les valeurs de 1 à 3 par pas de 1</p>
+<p>## à tester:
+ndft plus grand, plus petit est = à len(x)</p>
+<p>## à améliorer
+permetre de renvoyer un tableau de fréquence bipolair (-Fs/2 à Fs/2) au lieu de 0 à Fs</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.computePSD">
@@ -124,20 +146,26 @@ kMax (_type_): _description_</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.correlationCoefficient">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">correlationCoefficient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.correlationCoefficient" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="TsaLib.TsaLib.dummPython">
-<span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">dummPython</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.dummPython" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Compute the correlation coefficient between two signals.</p>
+<dl>
+<dt>Args:</dt><dd><p>x (array-like): Signal to correlate.</p>
+<p>y (array-like): Signal to correlate.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>r: integer</dt><dd><p>Correlation coefficient between x and y.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.findFirstPeak">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">findFirstPeak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.findFirstPeak" title="Permalink to this definition"></a></dt>
-<dd><p>Find first peak in signal</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>x (array_like): Signal.
-w (int, optional): Size of the window. The maximum MUST be the absolute maximum in a window of size w around it. Defaults to 1.</p>
+<dd><p>Find first peak in signal.</p>
+<dl>
+<dt>Args:</dt><dd><p>x (array_like): Signal.</p>
+<p>w (int, optional): Size of the window. The maximum MUST be the absolute maximum in a window of size w around it. Defaults to 1.</p>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
 <dt>lagMax: integer</dt><dd><p>Index of the first peak.py</p>
@@ -150,12 +178,23 @@ w (int, optional): Size of the window. The maximum MUST be the absolute maximum 
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.findMax">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">findMax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.findMax" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="TsaLib.TsaLib.findPeak">
-<span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">findPeak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.findPeak" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Find the maximum of a signal.</p>
+<dl>
+<dt>Args:</dt><dd><p>x (array-like): Signal.</p>
+<p>kMin (integer): Start index of search.</p>
+<p>kMax (integer): End index of search.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>lagMax: integer</dt><dd><p>Index of the greatest value in x.
+Default to kMin.</p>
+</dd>
+<dt>xMax:   integer</dt><dd><p>Maximum value found in x.
+Default to 0.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.pitch2Tone">
@@ -192,16 +231,16 @@ w (int, optional): Size of the window. The maximum MUST be the absolute maximum 
 <dl class="py function">
 <dt class="sig sig-object py" id="TsaLib.TsaLib.unbiasedAutoCorrelation">
 <span class="sig-prename descclassname"><span class="pre">TsaLib.TsaLib.</span></span><span class="sig-name descname"><span class="pre">unbiasedAutoCorrelation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kMax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TsaLib.TsaLib.unbiasedAutoCorrelation" title="Permalink to this definition"></a></dt>
-<dd><p>Compute unbiased auto correlation</p>
+<dd><p>Compute unbiased auto correlation.</p>
 <dl>
 <dt>Args:</dt><dd><p>x (array_like): Signal to be autocorrelated.</p>
 <p>kMin (integer): Start index of correlation.</p>
 <p>kMax (integer): End index of correlation.</p>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt>ndarray:        lags</dt><dd><p>Index of the correlation (from kMin to Kmax with a step of 1).</p>
+<dt>lags:   ndarray</dt><dd><p>Index of the correlation (from kMin to Kmax with a step of 1).</p>
 </dd>
-<dt>ndarray:        rxx</dt><dd><p>Auto correlation of x.</p>
+<dt>rxx:    ndarray</dt><dd><p>Unbiased auto correlation of x.</p>
 </dd>
 </dl>
 </dd>
